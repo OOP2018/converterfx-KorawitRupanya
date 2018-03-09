@@ -21,21 +21,35 @@ public class ConverterController {
 	@FXML
 	private ComboBox<Length> unitbox2;
 	
+	private String defaultStyle;
+	
 	/**
 	 * Convert a distance form one unit to another.
 	 */
 	public void handleConvert(ActionEvent event) {
-		 String text1 = textfield1.getText().trim();
-		 Length unit1 = unitbox1.getValue();
-		 String text2 = textfield2.getText().trim();
-		 Length unit2 = unitbox2.getValue();
-		unit2.getValue();
-		System.out.println(unit2);
-		System.out.println(unit2.getValue());
+		TextField startNumber = textfield1;
+		TextField convertedNumber = textfield2;
+		defaultStyle=startNumber.getStyle();
+		
+		if(textfield1.getText().length()!=0) {
+		startNumber = textfield1;
+		convertedNumber = textfield2;
+		}
+		if(textfield2.getText().length()!=0){
+		startNumber=textfield2;
+		convertedNumber=textfield1;
+		}
 		try {
-			
+			String text1 = startNumber.getText().trim();
+			double startNumberDb = Double.parseDouble(text1);
+			Length unit1 = unitbox1.getValue();
+			double meter = startNumberDb*unit1.getValue();
+			Length unit2 = unitbox2.getValue();
+			double result = meter/unit2.getValue();
+			String acresult = String.format("%.4g",result);
+			convertedNumber.setText(acresult);
 			}catch (Exception e) {
-				textfield1.setStyle("-fx-text-inner-color: red;");
+				startNumber.setStyle("-fx-text-inner-color: red;");
 			}
 		}
 	
@@ -45,6 +59,8 @@ public class ConverterController {
 	public void handleClear(ActionEvent event) {
 		textfield1.clear();
 		textfield2.clear();
+		textfield1.setStyle(defaultStyle);
+		textfield2.setStyle(defaultStyle);
 		}
 	
 	/**
