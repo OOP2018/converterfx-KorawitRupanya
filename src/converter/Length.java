@@ -1,5 +1,10 @@
 package converter;
 
+/**
+ * The unit length that program can convert.
+ * @author Korawit Rupanya
+ *
+ */
 public enum Length {
 
 	Mile(1609.344),

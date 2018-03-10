@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 
 /**
  * UI controller for events and initializing components.
- * @author Smarty
+ * @author Korawit Rupanya
  *
  */
 
@@ -29,22 +29,26 @@ public class ConverterController {
 	public void handleConvert(ActionEvent event) {
 		TextField startNumber = textfield1;
 		TextField convertedNumber = textfield2;
+		Length unit1 = unitbox1.getValue();
+		Length unit2 = unitbox2.getValue();
 		defaultStyle=startNumber.getStyle();
 		
 		if(textfield1.getText().length()!=0) {
 		startNumber = textfield1;
 		convertedNumber = textfield2;
+		unit1 = unitbox1.getValue();
+		unit2 = unitbox2.getValue();
 		}
 		if(textfield2.getText().length()!=0){
 		startNumber=textfield2;
 		convertedNumber=textfield1;
+		unit1 = unitbox2.getValue();
+		unit2 = unitbox1.getValue();
 		}
 		try {
 			String text1 = startNumber.getText().trim();
 			double startNumberDb = Double.parseDouble(text1);
-			Length unit1 = unitbox1.getValue();
 			double meter = startNumberDb*unit1.getValue();
-			Length unit2 = unitbox2.getValue();
 			double result = meter/unit2.getValue();
 			String acresult = String.format("%.4g",result);
 			convertedNumber.setText(acresult);
